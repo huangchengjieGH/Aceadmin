@@ -1,0 +1,215 @@
+<div class="page-content pre-scrollable">
+    
+    <div class="page-header" style="margin: 0 !important;">
+         <h4>
+            {:model('menu')->getName()} {gt name="$Request.get.group_id" value="0"} [{:model('AdminGroup')->getGroupName($Request.get.group_id)}]{/gt}
+        </h4>
+        <div style="position: relative;">
+            <div style="display:inline-block;width:28em;position: relative;">
+                <label for="dtp_input1" class="control-label">开始日期:</label>
+                <div class="input-group date form_datetime_s" data-date="{:Date('Y-m-d',time())}T05:25:07Z" data-date-format="dd MM yyyy - HH:ii p" data-link-field="dtp_input1">
+                    <input class="form-control start_date" size="16" type="text" value="{:$_SESSION['start_time']?Date('Y-m-d H:i:s',$_SESSION['start_time']):''}" readonly>
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                </div>
+            </div>
+             <div style="display:inline-block;width:28em;position:relative;left: 1em;">
+                <label for="dtp_input1" class="control-label">结束日期</label>
+                <div class="input-group date form_datetime_d" data-date="{:Date('Y-m-d',time())}T05:25:07Z" data-date-format="dd MM yyyy - HH:ii p" data-link-field="dtp_input1">
+                    <input class="form-control stop_date" size="16" type="text" value="{:$_SESSION['stop_time']?Date('Y-m-d H:i:s',$_SESSION['stop_time']):''}" readonly>
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                </div>
+            </div>
+
+            <div style="display:inline-block;width:4em;position:relative;left: 2em;top:2.2em;">
+                <button class="btn btn-sm btn-primary" onclick="menutab('/admin/Revenue/clean_time')">
+                    日报
+                </button>
+            </div>
+
+            <!-- <div style="display:inline-block;width:4em;position:relative;left: 2em;top:2.2em;">
+                <button class="btn btn-sm btn-primary" onclick="menutab('')">
+                    周报
+                </button>
+            </div>
+
+            <div style="display:inline-block;width:4em;position:relative;left: 2em;top:2.2em;">
+                <button class="btn btn-sm btn-primary" onclick="menutab('')">
+                    月报
+                </button>
+            </div>
+
+            <div style="display:inline-block;width:4em;position:relative;left: 2em;top:2.2em;">
+                <button class="btn btn-sm btn-primary" onclick="menutab('')">
+                    年报
+                </button>
+            </div> -->
+
+            <div style="padding-top:1em;">
+                <p class="font_20">
+                 <span class="all_income">收入/元：<span class=" color_red">{if $num.price != null}￥{$num.price} {else}0{/if}</span></span>
+                 <span class="all_income">销量/桶：<span class=" color_red">{if $num.bucket_num != null}{$num.bucket_num} {else}0{/if}</span></span>
+                 <span class="all_income">订单数：<span class=" color_red">{if $_SESSION['pagecount'] != null}{$_SESSION['pagecount']} {else}0{/if}</span></span>
+                </p>
+            </div>
+            
+            {if !$isdisplay}
+            <!-- <div style="display:inline-block;width:28em;position:absolute;right: 5em;top:1.6em;">
+                <input type="hidden" id="dtp_input1" value="" />
+                <div class="input-group ">          
+                  <input type="text" class="form-control" id="search" name='search' placeholder="搜索服务站点名" aria-describedby="basic-addon1">
+                  <span class="input-group-addon search" id="basic-addon1">搜索</span>
+                </div>
+            </div> -->
+            {/if}
+        </div>
+    </div><!-- /.page-header -->
+    
+    <div class="row" style="width: 98%;">
+        <div class="col-xs-12">
+            <!-- PAGE CONTENT BEGINS -->
+            <div class="row">
+                <div class="col-xs-12">
+
+                    <table id="simple-table" class="table  table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th class="detail-col">排序</th>
+                                <th>订单号</th>
+                                <th>数量</th>
+                                <th>收货地址</th>
+                                <th>称呼</th>
+                                <th>用户的联系方式</th>
+                                <th>购买的产品</th>
+                                <th>订购时间</th>
+                                <th>销售点</th>
+                                <!-- <th>单价</th> -->
+                                <th>是否有电梯</th>
+                                <th>楼层</th>
+                                <th>服务费/桶</th>
+                                <th>总费用</th>
+                                <th>订单状态</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {volist name="lists" id="vo"  key="k" empty="暂时没有数据"}
+                            <tr>
+                                <td> {:$k+$page*$num.page_size}</td>
+                                <td>{$vo.order_id}</td>
+                                <td>{$vo.num}</td>
+                                <td>{$vo.o_address}</td>
+                                <td>{$vo.user_name}</td>
+                                <td>{$vo.user_phone}</td>
+                                <td >{:$vo.product_N?$vo.product_N:'该产品已不存在'}</td>
+                                <td>{:Date('Y-m-d H:i:s',$vo.o_builddate)}</td>
+                                <td ><a class="onhover" onclick='myale("电话：{$vo.shop_phone}")'>{$vo.shop_name}</a></td>
+                                <!-- <td><p style="color:red">￥ </p></td> -->
+                                <td>{:$vo.iselevator?'是':'否'}</td>
+                                <td>{$vo.user_floor}</td>
+                                <td><p style="color:red">￥{$vo.service_fee}</p></td>
+                                <td><p style="color:red">￥{$vo.price}</p></td>
+                                <td>{:get_status_name($vo.order_status)}</td>
+                            
+                            </tr>
+                            {/volist}  
+                        </tbody>  
+                    </table>
+                </div><!-- /.span -->
+            </div><!-- /.row -->
+            <script>
+            var data ={};
+            var $start_in = $('.start_date');
+            var $stop_in = $('.stop_date');
+            var $s_f_date = $('.form_datetime_d');
+                $s_f_date.datetimepicker({                    
+                        weekStart: 1,
+                        todayBtn:  1,
+                        autoclose: 1,
+                        todayHighlight: 1,
+                        minView: "hour",
+                        startView: 2,
+                        forceParse: 0,
+                        showMeridian: 1,
+                        format: "yyyy-mm-dd hh:ii:ss",
+                        pickTime: false,
+                        pickerPosition: "bottom-right",
+                        StartDate:"2017-01-02",
+                    }).on('changeDate',function(ev){
+                        data["start"] = $start_in.val();
+                        data["stop"] = $stop_in.val();
+                        menutab("/admin/Revenue/index",data);
+                    });
+                $('.form_datetime_s').datetimepicker({                    
+                    weekStart: 1,
+                    todayBtn:  1,
+                    autoclose: 1,
+                    todayHighlight: 1,
+                    minView: "hour",
+                    startView: 2,
+                    forceParse: 0,
+                    showMeridian: 1,
+                    format: "yyyy-mm-dd hh:ii:ss",
+                    pickTime: false,
+                    pickerPosition: "bottom-right",
+                    StartDate:"2017-01-02",
+                }).on('changeDate',function(ev){
+                    data["start"] = $start_in.val();                   
+                });
+                $('span.search').on("click",function(){
+                    var sea_data = $("input#search").val();
+                    menutab("/admin/Order/search_order",{"shop_name":sea_data});                   
+                });
+                function tip(tip){
+                    layer.msg(tip);
+                }
+                $("select#select_a").change(function(){
+                    var order_status = $(this).val();
+                    menutab('/admin/Revenue/index',{'order_status':order_status});
+                });
+            </script>
+
+
+
+            <!-- PAGE CONTENT ENDS -->
+        </div><!-- /.col -->
+    </div><!-- /.row -->
+</div><!-- /.page-content -->
+<!--分页页码-->
+<div style="position: absolute;left: -10em;width:100%;text-align: center;">
+
+    <ul class="page_ul">
+        <li>
+        {if $page != 0}
+            <a class="page_a" onclick="menutab('/admin/Revenue/{:$flag_t?\'orderOftime\':\'index\'}',{'num':{:$page-1},'op':0})"><</a>
+        {else}
+            <a class="page_a page_a_on" onclick="tip('已经是第一页了')" ><</a>
+        {/if}
+        </li>
+                {for start="0" end="$page_count" step="1" name="pageval"}
+                {if ($page+1)>($page_count-3)}
+                    <li style="{if $page<=($pageval-3)||$page>=($pageval+6-($page_count-$page))}display: none;{/if}">
+                {elseif ($page+1)>3}
+                    <li style="{if $page<=($pageval-3)||$page>=($pageval+3)}display: none;{/if}">
+                {else}
+                    <li style="{if $page<=($pageval-5+$page)||$page>=($pageval+3)}display: none;{/if}">
+                {/if}
+                    <a href="javascript:;"   class="page_a {if $page==$pageval}page_a_on{/if}" {if $page!=$pageval} onclick="menutab('/admin/Revenue/{:$flag_t?\'orderOftime\':\'index\'}',{'num':{$pageval}})"{/if}>{$pageval+1}</a>
+                    </li>
+                {/for}
+        <li>
+        {if $N_flag}
+            <a class="page_a" onclick="menutab('/admin/Revenue/{:$flag_t?\'orderOftime\':\'index\'}',{'num':{:$page+1},'op':1})">></a>
+        {else}
+            <a class="page_a  page_a_on" onclick="tip('最后一页了')">></a>
+        {/if}
+        </li>
+     </ul>
+     <!-- 跳到第几页-->
+     <!-- <input type="text" style="width: 2em;position: relative;top: -0.5em;left: 0.5em;"> -->
+     <!-- <span class="page_a" style="width: 2em;position: relative;top: -0.5em;left: 0.5em;">GO</span> -->
+        <span style="position: relative;top:-0.3em;left:1em;">共{$_SESSION['pagecount']}条</span>
+        <span style="position: relative;top:-0.3em;left:2em;">共{$page_count}页</span>
+
+</div>
+<!--分页页码结束 -->

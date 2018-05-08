@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>订水系统 1.0</title>
+    <meta name="description" content="">
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lte IE 9]>
+        <script>alert("不支持该版本");</script>
+        <![endif]-->
+    <!-- Fav and touch icons -->
+    <meta name="author" content="广州慈龙电子商务有限公司">
+    <!-- Le styles -->
+    <!-- <link rel="stylesheet" href="{:config('public.static')}/yace/loading_y.css?v={:time()}" /> -->
+    
+    <!-- <script src="{:config('public.static')}/yace/loading_y.js?v={:time()}"></script> -->
+
+    <link rel="stylesheet" href="https://at.alicdn.com/t/font_587183_s7237gxczx4rt3xr.css">
+
+    <link rel="stylesheet" href="{:config('public.static')}/assets/css/style.css?v={:time()}">
+    <link rel="stylesheet" href="{:config('public.static')}/assets/css/loader-style.css?v={:time()}">
+    <link rel="stylesheet" href="{:config('public.static')}/assets/css/bootstrap.css?v={:time()}?v={:time()}">
+    <link href="{:config('public.static')}/assets/css/fileinput.css" media="all" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="{:config('public.static')}/assets/font-awesome/4.5.0/css/font-awesome.min.css?v={:time()}" />
+
+    <link rel="stylesheet" type="text/css" href="{:config('public.static')}/assets/js/progress-bar/number-pb.css?v={:time()}">
+     <link rel="stylesheet" href="{:config('public.static')}/assets/css/bootstrap-datetimepicker.css?v={:time()}" />
+    <link rel="stylesheet" href="{:config('public.static')}/yace/yace.css?v={:time()}" />
+
+    <script src="{:config('public.static')}/assets/js/jquery-2.1.4.min.js?v={:time()}"></script> 
+   
+    <link rel="shortcut icon" href="{:config('public.static')}/assets/ico/minus.png">
+
+    <script>
+        
+    </script>
+</head>
+
+<body>
+    <!-- Preloader -->
+    <div id="preloader">
+        <div id="status">&nbsp;</div>
+    </div>
+    <!-- TOP NAVBAR 手机端-->
+    <nav role="navigation" class="navbar navbar-static-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button data-target="#bs-example-navbar-collapse-1" data-toggle="collapse" class="navbar-toggle" type="button">
+                    <span class="entypo-menu"></span>
+                </button>
+                <button class="navbar-toggle toggle-menu-mobile toggle-left" type="button">
+                    <span class="entypo-list-add"></span>
+                </button>
+
+            </div>
+
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div id="bs-example-navbar-collapse-1" class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    {if $tip_shop==4||session("user_id")==1}
+                    <li class="dropdown">
+
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#"><i style="font-size:20px;" class="icon-conversation"></i><div class="noft-red stock_count">0</div></a>
+
+
+                        <ul style="margin: 11px 0 0 9px;" role="menu" class="dropdown-menu dropdown-wrap stock_str">
+                            
+                        </ul>
+                    </li>
+                    {/if}
+                    {if $tip_shop==2||session("user_id")==1}
+                    <li>
+
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#"><i style="font-size:19px;" class="icon-warning tooltitle"></i><div class="noft-green order_count">0</div></a>
+                        <ul style="margin: 12px 0 0 0;" role="menu" class="dropdown-menu dropdown-wrap order_str">
+
+                        </ul>
+                    </li>
+                    {/if}
+                </ul>
+                <div id="nt-title-container" class="navbar-left running-text visible-lg">
+                    <ul class="date-top">
+                        <li class="entypo-calendar" style="margin-right:5px"></li>
+                        <li id="Date"></li>
+
+
+                    </ul>
+
+                    <ul id="digital-clock" class="digital">
+                        <li class="entypo-clock" style="margin-right:5px"></li>
+                        <li class="hour"></li>
+                        <li>:</li>
+                        <li class="min"></li>
+                        <li>:</li>
+                        <li class="sec"></li>
+                        <li class="meridiem"></li>
+                    </ul>
+                    <div class="nt-title-div">
+                    <span>公告：</span>
+                        <ul id="nt-title">
+                            <li><i class="fa fa-comment-o"></i>&#160;&#160;&#160;
+                                今天的公告
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <ul style="margin-right:0;" class="nav navbar-nav navbar-right">
+                    <li>
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                            你好, {:session('user_name')}<b class="caret"></b>
+                        </a>
+                        <ul style="margin-top:14px;" role="menu" class="dropdown-setting dropdown-menu">
+                            <li>
+                                <a href="#" onclick="menutab('/admin/Admin/public_edit_info')">
+                                    <span class="entypo-user"></span>&#160;&#160;个人设置</a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <a href="/admin/Login/logout">
+                                    <span class="entypo-vcard"></span>&#160;&#160;退出</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="hidden-xs">
+                        <a class="toggle-left" href="#">
+                            <span style="font-size:20px;" class="entypo-list-add"></span>
+                        </a>
+                    </li>
+                </ul>
+
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+
+    <!-- /END OF TOP NAVBAR -->
+
+    <!-- SIDE MENU pc端-->
+    <div id="skin-select">
+        <div id="logo">
+         <h1>免费饮水</h1>
+        </div>
+
+        <a id="toggle">
+            <span class="entypo-menu"></span>
+        </a>
+        <div class="dark">
+            <form action="#">
+                <span>
+                    <input type="text" name="search" value="" class="search rounded id_search" placeholder="搜索菜单..." autofocus="">
+                </span>
+            </form>
+        </div>
+
+        <div class="search-hover">
+            <form id="demo-2">
+                <input type="search" placeholder="搜索菜单..." class="id_search">
+            </form>
+        </div>
+
+
+
+        
+        <div class="skin-part">
+        <audio id="orderbgMusic">
+            <source = src="{:config('public.static')}/assets/music/ordertip.mp3" type="audio/mp3">
+        </audio>
+            <div id="tree-wrap">
+                <div class="side-bar">
+                    {volist name="menuTree" id="vo"}
+                        <ul class="topnav menu-left-nest">
+                            <li>
+                                <a href="javascript:;" onclick="menutab('/admin/{$vo.c}/{$vo.a}')" style="border-left:0px solid!important;" class="title-menu-left">
+
+                                    <span>{$vo.name}</span>
+                                    <i data-toggle="tooltip" class="entypo-cog pull-right config-wrap"></i>
+
+                                </a>
+                            </li>
+                            {if isset($vo['_child'])}
+                                {volist name="vo['_child']" id="voc"}
+                                        <li>
+                                            <a class="tooltip-tip ajax-load" href="javascript:;" onclick="menutab('/admin/{$voc.c}/{$voc.a}')" title="{$voc.name}">
+                                                <i class="fa {:$voc.icon?$voc.icon:'fa-superpowers'}"></i>
+                                                <span>{$voc.name}</span>
+
+                                            </a>
+                                            {if isset($voc['_child'])}
+                                                    <ul>
+                                                        {volist name="voc['_child']" id="voa"}
+                                                        <li>
+                                                            <a class="tooltip-tip2 ajax-load" href="javascript:;" onclick="menutab('/admin/{$voa.c}/{$voa.a}')" title="{$voa.name}"><i class="fa {:$voa.icon?$voa.icon:'fa-superpowers'}"></i><span>{$voa.name}</span></a>
+                                                            {if isset($voa['_child'])}
+                                                                
+                                                                    <ul>
+                                                                    {volist name="voa['_child']" id="vod"}
+                                                                        <li>
+                                                                            <a class="tooltip-tip2 ajax-load" href="javascript:;" onclick="menutab('/admin/{$vod.c}/{$vod.a}')" title="Blog List"><i class="fa {:$vod.icon?$vod.icon:'fa-superpowers'}"></i><span>{$vod.name}</span></a>
+                                                                        </li>
+                                                                    {/volist}
+                                                                    </ul>
+                                                            {/if}    
+                                                        </li>
+                                                        {/volist}
+                                                    </ul>
+                                                 
+                                            {/if}    
+                                    </li>
+
+                                {/volist}
+                            {/if}
+                        </ul>
+                    {/volist}     
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END OF SIDE MENU -->
+
+
+
+    <!--  PAPER WRAP -->
+    <div class="wrap-fluid">
+        <div class="container-fluid paper-wrap bevel tlbr">
+            <iframe class="BMap_mask" id="BMap_mask" src='/admin/Register/Bmap'></iframe>
+        </div>
+    </div>
+    <!--  END OF PAPER WRAP -->
+
+   
+
+        
+    </div>
+
+    <!-- END OF RIGHT SLIDER CONTENT-->
+
+    <!-- js file -->
+    <script src="{:config('public.static')}/layer/layer.js?v={:time()}" type="text/javascript"></script>
+    <script src="{:config('public.static')}/layui/layui.js?v={:time()}" type="text/javascript"></script>
+
+
+    <script src="{:config('public.static')}/assets/js/bootstrap.js?v={:time()}" type="text/javascript"></script>
+    <script src="{:config('public.static')}/assets/js/fileinput.js" type="text/javascript"></script>
+    <script src="{:config('public.static')}/assets/js/bootstrap-datetimepicker.js" type="text/javascript"></script>
+    <script src="{:config('public.static')}/assets/js/distpicker.data.js" type="text/javascript"></script>
+    <script src="{:config('public.static')}/assets/js/distpicker.js" type="text/javascript"></script>
+    <script src="{:config('public.static')}/assets/js/load.js?v={:time()}" type="text/javascript"></script>
+    <script src="{:config('public.static')}/assets/js/main.js?v={:time()}" type="text/javascript"></script>
+
+
+
+
+
+
+    <script src="{:config('public.static')}/yace/yace.js?v={:time()}"></script>
+    <!-- js file end -->
+    <script type="text/javascript">
+       {if $tip_shop==2||session("user_id")==1}order_tip();{/if}
+        menutab("/admin/Index/index_mod");
+    </script>
+    <div style="text-align:center;position: relative;bottom: -0.5em;width: 100%;border-top: 1px double #c3c3c3;">
+        <p style="color:#fff;">&copy;2018 edit by 广州慈龙电子商务科技有限公司</p>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,90 @@
+<div class="page-content pre-scrollable">
+    <div class="col-sm-6 pull-right">
+        <span class="btn btn-sm btn-primary pull-right" onclick="menutab('/admin/Menu/info')">
+            添加
+            <i class="icon-reply icon-only"></i>
+        </span>
+    </div>
+    <div class="page-header">
+        <h4>
+            {:model('menu')->getName()} 
+        </h4>
+    </div><!-- /.page-header -->
+
+    <div class="row" style="width: 98%;">
+        <div class="col-xs-12">
+            <!-- PAGE CONTENT BEGINS -->
+            <div class="row">
+                <div class="col-xs-12">
+                    <table id="simple-table" class="table  table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th class="detail-col" width="20">排序</th>
+                                <th class="detail-col">序号</th>
+
+                                <th>名称</th>
+                                <th>url</th>
+                                <th class="hidden-480">data</th>
+                                <th class="hidden-480">状态</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+
+                        <form  action="" method="post" name="myform">
+
+                            {volist name="lists" id="vo"}
+                            <tr>
+                                <td><input type="text" class="listorder" name="{$vo.id}" value="{$vo.listorder}" width="10"/></td>
+                                <td>{$vo.id}</td>
+
+                                <td>{:str_repeat("│        ",$vo['level'])} {eq name="$vo['level']" value="0"}<span class="fa {$vo.icon}"></span> <b>{$vo.name}</b>{else/}├─{$vo.name}{/eq}</td>
+                                <td>{$vo['c']}/{$vo['a']}</td>
+                                <td class="hidden-480">
+                                    <span class="label label-sm label-warning">{$vo.data}</span>
+                                </td>
+                                <td>{eq name="$vo['display']" value="1"}显示{else/}{/eq}</td>
+                            </tr>
+                            {/volist}  
+                        </form>
+                        </tbody>
+                    </table>
+                </div><!-- /.span -->
+            </div><!-- /.row -->
+            <script>
+                function setListorder(){
+                    var $input = $('.listorder');
+                    var listorder = [];
+                      $input.each(function(index,ele){
+                        var name = $input.eq(index).attr('name');
+                        var val = $input.eq(index).val();
+                        listorder[name] = val;
+                      });
+                      // listorder = JSON.stringify(listorder);
+                      $.post('/admin/Menu/setListorder',{listorder:listorder},function(res){
+                        if(res!=null){
+                            $res = $.parseJSON(res);
+                            if($res.status==0){
+                                layer.msg($res.html);
+                                window.location.reload();
+                            }
+                            else if($res.status==1){
+                                layer.msg($res.html);
+                            }else{
+                                layer.msg('完善中。。。');
+                            }
+                        }
+                    });
+                }
+            </script>
+
+
+
+            <!-- PAGE CONTENT ENDS -->
+        </div><!-- /.col -->
+    </div><!-- /.row -->
+</div><!-- /.page-content -->
+<span class="btn btn-info" id="bootbox-confirm" onclick="setListorder()" style="position: absolute;left: 4em;">更新菜单</span>
+
+
+

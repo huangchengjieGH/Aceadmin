@@ -1,0 +1,100 @@
+<div class="page-content pre-scrollable">
+
+    <div class="page-header">
+        <h4>
+            {:model('menu')->getName()} 
+        </h4>
+    </div><!-- /.page-header -->
+
+    <div class="row" style="width:98%;">
+        <div class="col-xs-12">
+            <!-- PAGE CONTENT BEGINS -->
+            <div class="row">
+                <div class="col-xs-12">
+                    <table id="simple-table" class="table  table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th class="center">
+                                    <label class="pos-rel">
+                                        <input type="checkbox" class="ace" />
+                                        <span class="lbl"></span>
+                                    </label>
+                                </th>
+                                <th class="detail-col">序号</th>
+                                <th>用户名</th>
+                                <th>操作地址</th>
+                                <th class="hidden-480">操作IP</th>
+                                <th>
+                                    <i class="ace-icon fa fa-clock-o bigger-110 hidden-480"></i>
+                                    操作时间
+                                </th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            {volist name="lists" id="vo"}
+                            <tr>
+                                <td class="center">
+                                    <label class="pos-rel">
+                                        <input type="checkbox" class="ace" />
+                                        <span class="lbl"></span>
+                                    </label>
+                                </td>
+                                <td>{$vo.id}</td>
+                                <td><a href="#">{$vo.username}</a></td>
+                                <td>{$vo.c}/{$vo.a}{$vo.querystring}</td>
+                                <td class="hidden-480"><a href="http://ip138.com/ips138.asp?ip={:long2ip($vo.ip)}" target="_blank">{:long2ip($vo.ip)}</a></td>
+                                <td>{:date('Y-m-d H:i:s',$vo.time)}</td>
+                                
+                            </tr>
+                            {/volist}    
+                        </tbody>
+                    </table>
+                   
+                </div><!-- /.span -->
+            </div><!-- /.row -->
+             
+            <!-- PAGE CONTENT ENDS -->
+        </div><!-- /.col -->
+    </div><!-- /.row -->
+</div><!-- /.page-content -->
+<!--分页页码-->
+    <div style="position: absolute;left: -10em;width:100%;text-align: center;">
+
+        <ul class="page_ul">
+            <li>
+            {if $page != 0}
+                <a class="page_a" onclick="menutab('/admin/Log/index',{'num':{:$page-1},'op':0})"><</a>
+            {else}
+                <a class="page_a page_a_on" onclick="tip('已经是第一页了')" ><</a>
+            {/if}
+            </li>
+                    {for start="0" end="$page_count" step="1" name="pageval"}
+                    {if ($page+1)>($page_count-3)}
+                        <li style="{if $page<=($pageval-3)||$page>=($pageval+6-($page_count-$page))}display: none;{/if}">
+                    {elseif ($page+1)>3}
+                        <li style="{if $page<=($pageval-3)||$page>=($pageval+3)}display: none;{/if}">
+                    {else}
+                        <li style="{if $page<=($pageval-5+$page)||$page>=($pageval+3)}display: none;{/if}">
+                    {/if}
+                        <a href="javascript:;"   class="page_a {if $page==$pageval}page_a_on{/if}" {if $page!=$pageval} onclick="menutab('/admin/Log/index',{'num':{$pageval}})"{/if}>{$pageval+1}</a>
+                        </li>
+                    {/for}
+            <li>
+            {if $N_flag}
+                <a class="page_a" onclick="menutab('/admin/Log/index',{'num':{:$page+1},'op':1})">></a>
+            {else}
+                <a class="page_a  page_a_on" onclick="tip('最后一页了')">></a>
+            {/if}
+            </li>
+         </ul>
+         <!-- 跳到第几页-->
+         <!-- <input type="text" style="width: 2em;position: relative;top: -0.5em;left: 0.5em;"> -->
+         <!-- <span class="page_a" style="width: 2em;position: relative;top: -0.5em;left: 0.5em;">GO</span> -->
+            <span style="position: relative;top:-0.3em;left:1em;">共{$page_count}页</span>
+            <span style="position: relative;top:-0.3em;left:1em;">共{$_SESSION['pagecount']}条</span>
+
+    </div>
+<!--分页页码结束 -->
+
+

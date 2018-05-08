@@ -1,0 +1,73 @@
+<div class="page-content">
+    <div class="col-sm-6 pull-right">
+        <button class="btn btn-sm btn-primary pull-right" onclick="menutab('/admin/Shoper/fre_index')">
+            返回列表
+            <i class="icon-reply icon-only"></i>
+        </button>
+    </div>
+    <div class="page-header">
+        <h1>
+            {:model('menu')->getParentNname()}
+            <small>
+                <i class="ace-icon fa fa-angle-double-right"></i>
+                {:input('id')?'编辑':'新增'}
+            </small>
+        </h1>
+    </div><!-- /.page-header -->
+
+    <div class="row center-block" style="max-width:90em;">
+        <div class="col-xs-12 .col-lg-7 center-block">
+            <!-- PAGE CONTENT BEGINS -->
+            <form class="form-horizontal myfrom" role="form" action="{:input('id')?'edit_product':'add'}" method="post" name="myfrom" enctype="multipart/form-data">
+                {:input('id')?'<input type="hidden" value="'.$info['id'].'" name="id">':''}
+
+
+                <div class="input-group">
+                  <span class="input-group-addon" id="basic-addon1">个人桶费</span>
+                  <input type="text" class="form-control pro" id="pro_name" name='user_fre' onblur="check_info('#pro_name','',1)" placeholder="个人桶费" aria-describedby="basic-addon1" value="{$info.user_fre|default=''}">
+                </div><br>
+
+                
+
+                <div class="input-group">
+                  <span class="input-group-addon" id="basic-addon1">企业桶费 </span>
+                  <input type="text" class="form-control pro" name='company_fre' id="company_fre" onblur="check_info('#pro_price','',1)" placeholder="企业桶费" aria-describedby="basic-addon1" style="color:red" value="{$info.company_fre|default=''}">
+                </div><br>
+                
+                <div class="input-group">
+                  <span class="input-group-addon" id="basic-addon1">水店费用</span>
+                  <input type="text" class="form-control pro" name='shop_fre' placeholder="水店费用" aria-describedby="basic-addon1" value="{$info.shop_fre|default=''}">
+                </div><br> 
+
+                <div class="input-group">
+                  <span class="input-group-addon" id="basic-addon1">每层费用</span>
+                  <input type="text" class="form-control pro" name='floor_fre' placeholder="每层费用" aria-describedby="basic-addon1" value="{$info.floor_fre|default=''}">
+                </div><br>   
+
+                <div class="input-group">
+                  <span class="input-group-addon" id="basic-addon1">楼梯起步</span>
+                  <input type="text" class="form-control pro" name='floor_sub' placeholder="楼梯起步" aria-describedby="basic-addon1" value="{$info.floor_sub|default=''}">
+                </div><br> 
+                
+
+                <div class="clearfix form-actions">
+                    <div class="col-md-offset-3 col-md-9">
+                        <button class="btn btn-info" type="button" onclick="add_rec('/admin/Shoper/{:input(\'id\')?\'set_fee\':\'add\'}')">
+                            <i class="ace-icon fa fa-check bigger-110"></i>
+                            {:input('id')?'更改':'添加'}
+                        </button>
+                        &nbsp; &nbsp; &nbsp;
+                        <button class="btn" type="reset">
+                            <i class="ace-icon fa fa-undo bigger-110"></i>
+                            重置
+                        </button>
+                    </div>
+                </div>
+
+                <div class="space-4"></div>
+            </form>
+            <!-- PAGE CONTENT ENDS -->
+        </div><!-- /.col -->
+    </div><!-- /.row -->
+</div><!-- /.page-content -->
+ 

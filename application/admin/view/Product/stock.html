@@ -1,0 +1,59 @@
+<div class="page-content">
+    <div class="col-sm-6 pull-right">
+        </span>
+    </div>
+    <div class="page-header">
+         <h4>
+            {:model('menu')->getName()} {gt name="$Request.get.group_id" value="0"} [{:model('AdminGroup')->getGroupName($Request.get.group_id)}]{/gt}
+        </h4>
+    </div><!-- /.page-header -->
+
+    <div class="row">
+        <div class="col-xs-12">
+            <!-- PAGE CONTENT BEGINS -->
+            <div class="row">
+                <div class="col-xs-12">
+                    <span></span>
+                    <table id="simple-table" class="table  table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <!-- <th class="center">
+                                    <label class="pos-rel">
+                                        <input type="checkbox" class="ace" />
+                                        <span class="lbl"></span>
+                                    </label>
+                                </th> -->
+                                <th>服务点名字</th>
+                                <th>服务点地址</th>
+                                <th>产品名字</th>
+                                <th class="text_center">库存/桶</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            {volist name="lists" id="vo"}
+                            <tr {if $vo.stock<50}class='bg_red'{/if}>
+                                <!-- <td class="center">
+                                    <label class="pos-rel">
+                                        <input type="checkbox" class="ace" />
+                                        <span class="lbl"></span>
+                                    </label>
+                                </td> -->
+                                <td><a href="#">{$vo.shop_name}</a></td>
+                                <td>{$vo.shop_HQ}{$vo.shop_address_detail}</td>
+                                <td>{$vo.product_N}</td>
+                                <td class="text_center {if $vo.stock<50}color_red{/if}">{$vo.stock}</td>
+                                <td><button class="btn btn-success" onclick="edit_stock({$vo.shop_id})">到货数量</button><!-- &nbsp;<button class="btn btn-success" onclick="call_backnum({$vo.shop_id})">还桶数量</button> --></td>
+                            </tr>
+                            {/volist}    
+                        </tbody>
+                    </table>
+                   
+                </div><!-- /.span -->
+            </div><!-- /.row -->
+             
+            <!-- PAGE CONTENT ENDS -->
+        </div><!-- /.col -->
+    </div><!-- /.row -->
+

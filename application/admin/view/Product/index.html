@@ -1,0 +1,80 @@
+<div class="page-content">
+    <div class="col-sm-6 pull-right">
+        <span class="btn btn-sm btn-primary pull-right" onclick="menutab('/admin/Product/info')">
+            添加
+            <i class="icon-reply icon-only"></i>
+        </span>
+    </div>
+    <div class="page-header">
+        <h4>
+            {:model('menu')->getName()} {gt name="$Request.get.group_id" value="0"} [{:model('AdminGroup')->getGroupName($Request.get.group_id)}]{/gt}
+        </h4>
+    </div><!-- /.page-header -->
+
+    <div class="row">
+        <div class="col-xs-12">
+            <!-- PAGE CONTENT BEGINS -->
+            <div class="row">
+                <div class="col-xs-12">
+                    <span>总产品数：{$people_count}</span>
+                    <table id="simple-table" class="table  table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <!-- <th class="center">
+                                    <label class="pos-rel">
+                                        <input type="checkbox" class="ace" />
+                                        <span class="lbl"></span>
+                                    </label>
+                                </th> -->
+                                <th class="detail-col">序号</th>
+                                <th>产品名字</th>
+                                <th>产品信息</th>
+                                <th class="hidden-480">注册时间</th>
+                                <th>
+                                    <i class="ace-icon fa fa-clock-o bigger-110 hidden-480"></i>
+                                    上架时间
+                                </th>
+                                <th class="hidden-480">价格</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            {volist name="lists" id="vo"}
+                            <tr>
+                                <!-- <td class="center">
+                                    <label class="pos-rel">
+                                        <input type="checkbox" class="ace" />
+                                        <span class="lbl"></span>
+                                    </label>
+                                </td> -->
+                                <td>{$vo.id}</td>
+                                <td><a href="#">{$vo.product_N}</a></td>
+                                <td>{$vo.product_info}</td>
+                                <td>{:date('Y-m-d H:i:s',$vo['builddate'])}</td>
+                                <td>{:date('Y-m-d H:i:s',$vo['updatatime'])}</td>
+
+                                <td class="hidden-480">
+                                    <span style="color:red">￥ {$vo.price}</span>
+                                </td>
+                                <td>
+                                    <button class="btn btn-info" onclick="menutab('/admin/Product/productinfo?id={$vo[id]}')">修改</button>
+                                    <button class="btn btn-delete" onclick="del_rec('/admin/Product/del_product_r','{$vo.id}')">删除</button>
+                                    <button class="btn btn-delete" onclick="del_rec('/admin/Product/del_product','{$vo.id}'{if $vo.del_flag},'上架该产品？','上架'{else},'真的下架?','下架'{/if})">{if $vo.del_flag}上架{else}下架{/if}</button>
+                                </td>
+                            </tr>
+                            {/volist}    
+                        </tbody>
+                    </table>
+                   
+                </div><!-- /.span -->
+            </div><!-- /.row -->
+             
+            <!-- PAGE CONTENT ENDS -->
+        </div><!-- /.col -->
+    </div><!-- /.row -->
+</div><!-- /.page-content -->
+
+<script>
+
+</script>

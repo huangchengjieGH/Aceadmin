@@ -1,0 +1,110 @@
+<div class="page-content">
+    <div class="col-sm-6 pull-right">
+        <button class="btn btn-sm btn-primary pull-right" onclick="menutab('/admin/Product/index')">
+            返回列表
+            <i class="icon-reply icon-only"></i>
+        </button>
+    </div>
+    <div class="page-header">
+        <h1>
+            {:model('menu')->getParentNname()}
+            <small>
+                <i class="ace-icon fa fa-angle-double-right"></i>
+                {:input('id')?'编辑':'新增'}
+            </small>
+        </h1>
+    </div><!-- /.page-header -->
+
+    <div class="row center-block" style="max-width:90em;">
+        <div class="col-xs-12 .col-lg-7 center-block">
+            <!-- PAGE CONTENT BEGINS -->
+            <form class="form-horizontal myfrom" role="form" action="{:input('id')?'edit_product':'add'}" method="post" name="myfrom" enctype="multipart/form-data">
+                {:input('id')?'<input type="hidden" value="'.$info['id'].'" name="id">':''}
+
+                <div style="padding-bottom:1.5em;">
+                 <span>水店选择:</span>
+                 <select class="select_a" id='select_a'>
+                    {volist name='$shoplist' id='vos' key="key"}
+                      <option value ="{$vos.shop_id}" {if input('id')}{if $vos.shop_id==$info.shop_id}selected{/if}{/if}>{$vos.shop_name}</option>
+                    {/volist}
+                    </select>
+                </div>
+
+
+                <div class="input-group">
+                  <span class="input-group-addon" id="basic-addon1">产品名字</span>
+                  <input type="text" class="form-control pro" id="pro_name" name='product_N' onblur="check_info('#pro_name','',1)" placeholder="产品名字" aria-describedby="basic-addon1" value="{$info.product_N|default=''}">
+                </div><br>
+
+                
+
+                <div class="input-group">
+                  <span class="input-group-addon" id="basic-addon1">价格 ￥ </span>
+                  <input type="text" class="form-control pro" name='price' id="pro_price" onblur="check_info('#pro_price','number',1)" placeholder="价格" aria-describedby="basic-addon1" style="color:red" value="{$info.price|default=''}">
+                </div><br>
+
+                <div class="input-group">
+                  <span class="input-group-addon" id="basic-addon1">产品介绍</span>
+                  <input type="text" class="form-control pro" name='product_info' placeholder="产品介绍" aria-describedby="basic-addon1" value="{$info.product_info|default=''}">
+                </div><br>   
+                
+
+                <div class="container kv-main"> 
+                    <p class="help-block">支持图片的格式，大小不超过2.0M</p>          
+                    <input id="file-1" type="file" name="image_data[]" accept="image/*" multiple>
+                </div>
+
+                <div class="space-4"></div>
+            </form>
+            <!-- PAGE CONTENT ENDS -->
+        </div><!-- /.col -->
+    </div><!-- /.row -->
+</div><!-- /.page-content -->
+<script>
+    var data = {};
+
+    $("#file-1").fileinput({
+        uploadUrl: '/admin/Product/{:input(\'id\')?\'edit_product\':\'add\'}',
+        uploadExtraData: function(){
+            data = {
+                product_N:$("input[type=text].pro").eq(0).val(),
+                price:$("input[type=text].pro").eq(1).val(),
+                product_info:$("input[type=text].pro").eq(2).val(),
+                shop_id:$('#select_a').val(),
+                {:input('id')?'id:'.input('id'):''}
+            }
+            return data;
+        },
+        uploadAsync:false, 
+        allowedFileExtensions : ['jpg', 'png','gif'],
+        overwriteInitial: false,
+        maxFileSize: 2048,
+        maxFilesNum: 10,
+        layoutTemplates :{
+        //     actionDelete:'', //去除上传预览的缩略图中的删除图标
+            actionUpload:'',//去除上传预览缩略图中的上传图片；
+        //     actionZoom:''   //去除上传预览缩略图中的查看详情预览的缩略图标。
+        },
+        allowedFileTypes: ['image', 'video', 'flash'],
+        slugCallback: function(filename) {            
+            return filename.replace('(', '_').replace(']', '_');
+        },
+        initialPreviewShowDelete:true,  
+        msgFilesTooMany: "选择上传的文件数量 超过允许的最大数值！",
+        initialPreview: [
+            {volist name="$info.pics" id="vo"  key="k" empty=""}
+            "<img src='{$vo}' class='file-preview-image'>",
+            {/volist}
+        ], 
+        initialPreviewConfig:[
+            {volist name="$info.pic_del" id="v"  key="j" empty=""}
+                {caption: '产品图_{$j}', width: '120px', url: '/admin/Product/pre_del_Img?pic={$v}',key: {$j},  extra: {id: {:input('id')}}},
+            {/volist}
+        ],
+        showUpload: true,
+    });
+    $("#file-1").on("filebatchuploadsuccess", function (event, data, previewId, index) {           
+        menutab("/admin/Product/index");
+        myale("上传成功！");
+      });
+</script>

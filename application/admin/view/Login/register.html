@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>订水系统 1.0</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Le styles  -->
+    <script type="text/javascript" src="{:config('public.static')}/assets/js/jquery.min.js"></script>
+
+    <link rel="stylesheet" href="{:config('public.static')}/assets/css/style.css">
+    <link rel="stylesheet" href="{:config('public.static')}/assets/css/loader-style.css">
+    <link rel="stylesheet" href="{:config('public.static')}/assets/css/bootstrap.css">
+    <link rel="stylesheet" href="{:config('public.static')}/assets/css/signin.css">
+    <link rel="stylesheet" href="{:config('public.static')}/yace/yace.css">
+
+
+
+	<style>
+		body { text-align: center; }
+		.register { width:30em;background: transparent;display: inline-block;margin-top: 2%;position: absolute;left:25em; }
+		.has-feedback .form-control-feedback { top:20px;right:-5px; }
+		.form-control { color:#000 !important; }
+		.BMap_mask { position: absolute;width:85em; height:60em;top:6em;left:60em;z-index: 4;} 
+	</style>
+
+
+
+
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+        <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+    <!-- Fav and touch icons -->
+    <link rel="shortcut icon" href="{:config('public.static')}/assets/ico/minus.png">
+</head>
+<body>
+    <h2>欢迎您的入驻</h2>
+    <div >
+    <div class="register">	
+        <!-- 商家电话 -->
+		  <div class="form-group">
+		    <label class="control-label" for="phone"></label>
+		    <div class="input-group">
+		      <span class="input-group-addon">手机号码</span>
+		      <input type="text" class="form-control input_register" id="phone" data-name="shop_phone" aria-describedby="inputGroupSuccess3Status" onblur="check_info('#phone','phone',0)">
+		    </div>
+		  </div>
+
+        <!--商家名字 -->
+        <div class="form-group">
+		    <div class="input-group">
+		    <label class="control-label" for="name"></label>
+		      <span class="input-group-addon">商家名称</span>
+		      <input type="text" class="form-control input_register" id="name" data-name="shop_name" aria-describedby="inputGroupSuccess3Status" onblur="check_info('#name','',1)">
+		    </div>
+		  </div>
+
+		 <!--密码 -->
+		 <div class="form-group">
+		 	<label class="control-label" for="password"></label>
+		    <div class="input-group">
+		      <span class="input-group-addon">填写密码</span>
+		      <input type="password" class="form-control input_register" id="password" data-name="password" aria-describedby="inputGroupSuccess3Status" onblur="check_info('#password','password',0)">
+		    </div>
+		  </div>
+		 <!--确认密码 -->
+		 <div class="form-group">
+		 	<label class="control-label" for="password_confirm"></label>
+		    <div class="input-group">
+		      <span class="input-group-addon">确认密码</span>
+		      <input type="password" class="form-control input_register" id="password_confirm" data-name="password_confirm" aria-describedby="inputGroupSuccess3Status">
+		    </div>
+		  </div>
+		<!--地址-->
+		  <div class="form-group">
+		    <label class="control-label" for="address"></label>
+		    <div class="input-group">
+		      <span class="input-group-addon">商家地址</span>
+		      <input type="text" class="form-control input_register" id="address" data-name="shop_HQ" aria-describedby="inputGroupSuccess3Status" onblur="check_info('#address','',1)">
+		    </div>
+		  </div>
+		  <!--上传营业执照-->
+		 <div class="upfile_div">
+		 	<button class="btn upfile_btn" onclick="clp('#lience')">上传营业执照</button>
+		 	<input type="file" accept="image/*" class="upfile_style upfile_re" id="lience" onblur="check_info('#lience','',1)">
+		 </div>
+		 <!--上传证件照-->
+		 <div class="upfile_div">
+		 	<button class="btn upfile_btn" onclick="clp('#id_pic')">上传证件照</button>
+		 	<input type="file" accept="image/*" class="upfile_style upfile_re" id="id_pic" onblur="check_info('#id_pic','',1)">
+		 </div>
+		 <!--上传门面照-->
+		<div class="upfile_div">
+		 	<button class="btn upfile_btn" onclick="clp('#shop_pic')">上传门面照</button>
+		 	<input type="file" accept="image/*" class="upfile_style upfile_re" id="shop_pic" onblur="check_info('#shop_pic','',1)">
+		 </div>
+		 <!-- 邮箱-->
+		  <div class="form-group">
+		    <label class="control-label" for="email"></label>
+		    <div class="input-group">
+		      <span class="input-group-addon">商家邮箱</span>
+		      <input type="text" class="form-control input_register" id="email" data-name="email" aria-describedby="inputGroupSuccess3Status" onblur="check_info('#email','email',0)">
+		    </div>
+		  </div>
+		  <!--经纬度-->
+			<div class="form-group">
+		    <label class="control-label" for="lng"></label>
+		    <label class="control-label" for="lat"></label>
+		    <div class="input-group">
+		      <span class="input-group-addon">经纬度</span>
+		      <input type="text" class="form-control input_register lng" id="lng" data-name="longitude" aria-describedby="inputGroupSuccess3Status" readonly>
+		      <input type="text" class="form-control input_register lat" id="lat" data-name="latitude" aria-describedby="inputGroupSuccess3Status" readonly>
+		    </div>
+		  </div>
+		  <!--验证码-->
+		  <div class="form-group">
+		    <label class="control-label" for="cap"></label>
+		    <div class="input-group">
+		      <span class="input-group-addon">验证码</span>
+		      <input type="text" class="form-control input_register" id="cap" data-name="authcode" aria-describedby="inputGroupSuccess3Status">
+		      <span class="input-group-addon" id="captcha" style="padding:0;cursor: pointer">获取验证码</span>
+		      <!-- <a href="javascript:;" id="cap_a">换一张</a> -->
+		    </div>
+		  </div>
+
+		  <div class="form-group">
+		      <input type="checkbox" id="check_box"><a href="#" onclick="alert_txt()">《使用协议》</a>
+		  </div>
+		  <button class="btn btn btn-primary pull-right" type="button">重置</button>
+		  <button class="btn btn btn-primary pull-right" type="button" onclick="register()">注册</button>
+	</div>
+	</div>
+	<iframe class="BMap_mask" id="BMap_mask" src='/admin/Register/Bmap'></iframe>
+    <!-- MAIN EFFECT -->
+    <script type="text/javascript" src="{:config('public.static')}/assets/js/preloader.js"></script>
+    <script type="text/javascript" src="{:config('public.static')}/assets/js/bootstrap.js"></script>
+    <script type="text/javascript" src="{:config('public.static')}/assets/js/app.js"></script>
+    <script type="text/javascript" src="{:config('public.static')}/assets/js/load.js"></script>
+    <script type="text/javascript" src="{:config('public.static')}/assets/js/main.js"></script>
+
+    <script src="{:config('public.static')}/layer/layer.js?v={:time()}"></script>
+    <script type="text/javascript" src="{:config('public.static')}/yace/yace.js"></script>
+    
+    <script type="text/javascript">
+       function register(){
+       	if($('#check_box').is(':checked')) {
+	       	var $input = $('.input_register');
+	       	var data = [];
+	       	$input.each(function(index,ele){
+	       		var name = $input.eq(index).attr('data-name');
+	       		var val = $input.eq(index).val();
+	       		data.push({name,val});
+	       	});
+	       	var url_n = '/admin/Register/add';
+       		var upfile = ['#lience','#id_pic','#shop_pic'];
+       		upflie_ajax(url_n,data,upfile);
+       	}else{
+       		layer.open({
+	          title: '提示',
+	          content: "请阅读使用协议"
+	        });  
+       	}
+       }
+       function clp(str){
+   			return  $(str).click();
+		}
+		// $("cap_a").on('click',function(){
+		// 	$("#cap_img").remove();
+		// 	$("#captcha").append('<img src="/admin/Register/register_cap" title="点击更换" id="cap_img">');
+		// });
+		function setlnglat(lng,lat){
+			var $lng = $(".lng");
+			var $lat = $(".lat");
+			$lng.val(lng);
+			$lat.val(lat);
+		}
+		function address_set(val){
+			var $address = $("#address");
+			$address.val(val);
+		}
+		function address_get(){
+			var $address = $("#address");
+			return $address.val();
+		}
+		function get_lists(){
+			var lists = [];
+			{if $lists!=null}
+			{volist name="lists" id="vo" key="k"}
+				lists[{$k}] = {};
+				lists[{$k}]["shop_name"] = "{$vo.shop_name}";
+				lists[{$k}]["shop_pic"] = "{$vo.shop_pic}";
+				lists[{$k}]["longitude"] = "{$vo.longitude}";
+				lists[{$k}]["latitude"] = "{$vo.latitude}";
+			{/volist}
+				return lists;	
+			{else}
+				return null;
+			{/if}		
+		}
+		function text(){
+			layer.tips('Hi，我是tips', '#phone');
+		}
+
+		var InterValObj; //timer变量，控制时间
+	    var count = 60; //间隔函数，1秒执行
+	    var curCount;//当前剩余秒数
+	    var code = ""; //验证码
+	    var codeLength = 5;//验证码长度
+
+
+		$("#captcha").on('click',smscap);
+		function smscap(){
+			var phone = $("#phone").val();
+			if(phone!=null&&phone!=""){
+				$.post("/admin/Smscap/Smscap",{"phone":phone},function(res){
+		            if(res!=null){
+		                $res = $.parseJSON(res);
+		                if($res.status==0){
+		                	console.log($res.html);
+		                    curCount = count;
+						    $("#captcha").css({"background-color": "#c3c3c3","border":"1px solid #c3c3c3"});
+						    $("#captcha").unbind();
+							InterValObj = window.setInterval("SetRemainTime()", 1000);
+		                }else if($res.status==1){
+		                    layer.msg($res.html);
+		                }else{
+		                    layer.msg('完善中。。。');
+		                }
+		            }
+		        });
+			}else{
+				layer.msg('还未填写手机号码');
+			}	
+		}
+
+		function SetRemainTime() {
+		        if (curCount == 0) {
+		        	$.get("/admin/Smscap/Removecap",function(res){
+		        		if(res!=null){
+			                $res = $.parseJSON(res);
+			                if($res.status==0){
+			                   	window.clearInterval(InterValObj);//停止计时器
+					            $("#captcha").css({"background-color":"#10ABCE","border":"1px solid #10ABCE"});
+					            $("#captcha").html("重发验证码");
+					            code = ""; //清除验证码。如果不清除，过时间后，输入收到的验证码依然有效 
+			                }else if($res.status==1){
+
+			                }else{
+			                    layer.msg('完善中。。。');
+			                }
+			            }
+		        	});
+		        }
+		        else {
+		            curCount--;
+		            $("#captcha").html("获取(" + curCount + ")秒");
+		        }
+		    }
+
+		// var iframe = document.getElementById('BMap_mask').contentWindow;
+		// console.log(iframe);
+    </script>
+
+
+
+
+</body>
+
+</html>

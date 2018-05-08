@@ -1,0 +1,71 @@
+<div class="page-content">
+    <div class="col-sm-6 pull-right">
+        <!-- <span class="btn btn-sm btn-primary pull-right" onclick="menutab('/admin/Product/info')">
+            添加
+            <i class="icon-reply icon-only"></i>
+        </span> -->
+    </div>
+    <div class="page-header">
+        <h4>
+            {:model('menu')->getName()} {gt name="$Request.get.group_id" value="0"} [{:model('AdminGroup')->getGroupName($Request.get.group_id)}]{/gt}
+        </h4>
+    </div><!-- /.page-header -->
+
+    <div class="row">
+        <div class="col-xs-12">
+            <!-- PAGE CONTENT BEGINS -->
+            <div class="row">
+                <div class="col-xs-12">
+                    <table id="simple-table" class="table  table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <!-- <th class="center">
+                                    <label class="pos-rel">
+                                        <input type="checkbox" class="ace" />
+                                        <span class="lbl"></span>
+                                    </label>
+                                </th> -->
+                                <th>序号</th>
+                                <th>个人桶费</th>
+                                <th>企业桶费</th>
+                                <th>水店费用</th>
+                                <th>每层费用/步梯</th>
+                                <th>楼层起步</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            {volist name="lists" id="vo"}
+                            <tr>
+                                <!-- <td class="center">
+                                    <label class="pos-rel">
+                                        <input type="checkbox" class="ace" />
+                                        <span class="lbl"></span>
+                                    </label>
+                                </td> -->
+                                <td>{$vo.id}</td>
+                                <td>{$vo.user_fre}</td>
+                                <td>{$vo.company_fre}</td>
+                                <td>{$vo.shop_fre}</td>
+                                <td>{$vo.floor_fre}</td>
+                                <td>{$vo.floor_sub}</td>
+                                <td>
+                                    <button class="btn btn-info" onclick="menutab('/admin/Shoper/get_fee?id={$vo[id]}')">修改</button>
+                                </td>
+                            </tr>
+                            {/volist}    
+                        </tbody>
+                    </table>
+                   
+                </div><!-- /.span -->
+            </div><!-- /.row -->
+             
+            <!-- PAGE CONTENT ENDS -->
+        </div><!-- /.col -->
+    </div><!-- /.row -->
+</div><!-- /.page-content -->
+
+<script>
+
+</script>

@@ -1,0 +1,73 @@
+<div class="page-content">
+    <div class="col-sm-6 pull-right">
+        </span>
+    </div>
+    <div class="page-header">
+        <h4>
+            {:model('menu')->getName()} {gt name="$Request.get.group_id" value="0"} [{:model('AdminGroup')->getGroupName($Request.get.group_id)}]{/gt}
+        </h4>
+    </div><!-- /.page-header -->
+
+    <div class="row">
+        <div class="col-xs-12">
+            <!-- PAGE CONTENT BEGINS -->
+            <div class="row">
+                <div class="col-xs-12">
+                    <table id="simple-table" class="table  table-bordered">
+                        <thead>
+                            <tr>
+                                <th class="center">
+                                    <label class="pos-rel">
+                                        <input type="checkbox" class="ace" />
+                                        <span class="lbl"></span>
+                                    </label>
+                                </th>
+                                <th class="detail-col">id</th>
+                                <th>服务点名字</th>
+                                <th>服务点地址</th>
+                                <th class="hidden-480">空桶数量/个</th>
+                                <th>库存/个</th>
+                                <th>运输途中/个</th>
+                                <th>
+                                    桶总数量/个
+                                </th>
+                                <th>欠桶数</th>
+                                <th>待确认的还桶数量</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            {volist name="lists" id="vo"}
+                            <tr {if ($vo.bucket_allnum-$vo.bucket_null)<50&&$vo.ispass}class="bg_red"{/if}>
+                                <td class="center">
+                                    <label class="pos-rel">
+                                        <input type="checkbox" class="ace" />
+                                        <span class="lbl"></span>
+                                    </label>
+                                </td>
+                                <td>{$vo.shopid}</td>
+                                <td><a href="#">{$vo.shop_name}</a></td>
+                                <td>{$vo.shop_HQ}</td>
+                                <td>{$vo.bucket_null}</td>
+                                 <td>{:$vo.bucket_allnum-$vo.bucket_null}</td>
+                                 <td>{$vo.send_num}</td>
+                                <td>{$vo.bucket_allnum}</td>
+                                <td>{$vo.own_num}</td>
+                                <td>{$vo.call_backnum}</td>
+                                <td>
+                                    <button class="btn {if $vo.ispass}btn-success{else}{/if}" {if $vo.ispass}onclick="add_stock({$vo.shopid})"{/if}>{if $vo.ispass}派送{else}暂停运营{/if}</button>
+                                    {if $vo.ispass}<button class="btn btn-success" onclick="enter_back({$vo.shopid})">回收数量</button>{/if}
+                                </td>
+                            </tr>
+                            {/volist}    
+                        </tbody>
+                    </table>
+                   
+                </div><!-- /.span -->
+            </div><!-- /.row -->
+             
+            <!-- PAGE CONTENT ENDS -->
+        </div><!-- /.col -->
+    </div><!-- /.row -->
+</div><!-- /.page-content -->

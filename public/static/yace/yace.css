@@ -1,0 +1,100 @@
+@charset "utf-8";
+/*
+ * yace skin
+ * 
+ * (c) 2017 TangBin, http://www.planeArt.cn
+ *
+ */
+ 
+/* common start */
+th { background: #f0f0f0; }
+a { display: inline-block; }
+
+.color_green { color:green; }
+.color_bule { color:blue; }
+.color_red { color:red; }
+.bg_red { background: #fd7757; }
+.bg_blue { background: none repeat scroll 0 0 #10ABCE ;}
+.text_right { text-align: right; }
+.float_r { float: right }
+.float_l { float:left; }
+.text_center { text-align: center; }
+.font_16 { font-size: 16px; }
+.font_20 { font-size: 20px; }
+.font_36 { font-size: 36px; }
+
+.main-container:before { background: transparent; }
+
+/*ace模板内容的样式重写*/
+.main-content-inner { float: right;width: 99%;background: #fff; }
+.page-content { background: transparent;min-height: 60em;margin-left: 4em;position: relative; }
+.bevel.all, .bevel.trbl, .bevel.tlbr, .bevel.tr { min-height: 64em }
+#skin-select li span { line-height: 2.2em; }
+#skin-select li i { font-size: 1em;line-height:2em;top:0em; }
+.margintop { margin-top: 2em;margin-left:unset; }
+.nt-title-div { display: inline-block;margin-left: 4em;    margin-top: -0.3em; }
+ #nt-title { height: 1.7em !important;display: inline-block;padding: 0;line-height: 2.5em; }
+ .form-control { border-radius: 0px;display: inline;width:20%; }
+ .input-group-addon { border-radius: 0px; }
+
+
+.footer .footer-inner .footer-content { left:-200px;right:0px; }
+
+/*滚动条样式*/
+.pre-scrollable::-webkit-scrollbar  {  width: 0.5em;  height:0.5em;  background-color: transparent;  }  
+.pre-scrollable::-webkit-scrollbar-track  {  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0);  border-radius: 10px;  background-color: rgba(200,200,200,0);  }  
+.pre-scrollable::-webkit-scrollbar-thumb  {  border-radius: 10px;  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);  background-color: rgba(0,0,0,.5);  }  
+
+/*select样式 appearance:none;/*清除默认的样式*/*/
+select {border: solid 1px #000;appearance:none;-moz-appearance:none;-webkit-appearance:none;background: url("http://ourjs.github.io/static/2015/arrow.png") no-repeat scroll right center transparent;padding-right: 14px;
+}
+/*清除ie的默认选择框样式清除，隐藏下拉箭头*/
+select::-ms-expand { display: none; }
+
+
+.width_10 { width:10% !important; }
+.display_inline { display:inline-block; }
+.search:hover { cursor:pointer; }
+
+.upfile_div { position:relative;height:4em; }
+.upfile_btn { position: absolute;left:0;z-index: 4;width:8em; }
+.upfile_style { position: absolute;top:0;font-size: 1.4em;left:0.3em; }
+
+.onhover:hover { cursor:pointer; }
+
+.datetimepicker td, .datetimepicker th { border-radius: 0;-webkit-border-radius:0; }
+
+.layui-layer-tabmain { list-style: none;padding:0;position: relative;left:0; }
+.layui-layer-tabmain .layui-layer-tabli.layui-this { overflow: hidden; }
+
+.loadding { position: fixed;left: 0;top:0;width:100%;height: 100em; }
+
+/*分页样式*/
+.page_div { width:10em;overflow: hidden;position: absolute;width:100%;text-align: center;margin-top: auto; }
+.page_a { display: inline-block;box-shadow:1px 1px 5px #888;width: 1.5em;height: 1.4em;border: 0.1em solid #f5f5f5;background:#f5f5f5;text-align: center;cursor: pointer;cursor: hand;color:#333;text-align: center;  }
+.page_a_on:hover { color:#c3c3c3; }
+.page_a_on { color:#c3c3c3;cursor: not-allowed; }
+.page_ul { list-style: none;display: inline-block;padding:0;margin:0; }
+.page_ul>li { float: left;margin-left:0.5em; }
+
+/*百度地图*/
+.BMap_mask { position: absolute;top:2.2em;width: 98%; height:60em;left:1em; }
+
+/**/
+.pl{ width: 90%;border: 1px solid #e8e8e8;padding: 4px;border-radius: 5px;margin-left: 8%;position: relative;margin-top: 20px; }
+.tx { position: absolute;top: 0px;left: -55px;width: 55px;height: 50px;background-repeat: no-repeat;background-position: right 10px;padding-right: 12px; }
+
+.pl ul { padding: 0px 20px;line-height: 26px; }
+
+.plbg { background-color: #fafafa;border-bottom: 1px dotted #DCDCDC; }
+
+.pl .plul { word-wrap: break-word;width: 100%;padding-top: 10px;padding-bottom: 10px;font-size: 14px;background-color: #fafafa; }
+
+.pl ul { padding: 0px 20px;line-height: 26px; }
+.z13 { font-size: 13px; }
+
+.pl a { color: #5d6c80;text-decoration: none;cursor: pointer; }
+.hf { float: right;font-size: 12px;line-height: 26px; }
+.lyhf { margin-top: 2em; }
+
+.all_income { padding: 0 2em; }

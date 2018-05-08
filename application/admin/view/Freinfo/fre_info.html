@@ -1,0 +1,97 @@
+<div class="page-content">
+    <div class="col-sm-6 pull-right">
+        <button class="btn btn-sm btn-primary pull-right" onclick="menutab('/admin/Freinfo/fretype_index')">
+            返回列表
+            <i class="icon-reply icon-only"></i>
+        </button>
+    </div>
+    <div class="page-header">
+        <h4>
+            {:model('menu')->getParentNname()}
+            <small>
+                <i class="ace-icon fa fa-angle-double-right"></i>
+                {:input('id')?'编辑':'新增'}
+            </small>
+        </h4>
+    </div><!-- /.page-header -->
+
+    <div class="row center-block" style="max-width:90em;">
+        <div class="col-xs-12 .col-lg-7 center-block">
+            <!-- PAGE CONTENT BEGINS -->
+            <form class="form-horizontal myfrom" role="form" action="{:input('id')?'edit':'add'}" method="post" name="myfrom" enctype="multipart/form-data">
+                {:input('id')?'<input type="hidden" value="'.$info['id'].'" name="id">':''}
+                {:input('id')?'<input type="hidden" value="'.$info['fre_type'].'" name="fre_type">':''}
+                <!-- 费用名字 -->
+                <div class="input-group">
+                  <span class="input-group-addon" id="basic-addon1">费用名字</span>
+                  <input type="text" class="form-control pro" name='fre_name' placeholder="费用名字" aria-describedby="basic-addon1" value="{$info.fre_name|default=''}" {if $info!=null}disabled{/if}>
+                </div><br>
+                <div class="input-group">
+                    <p>人群：</p>
+                    <select class="form-control selector">
+                    {volist name='$crowd' id='vo' key="k"}
+                      <option value ="{$vo.id}" {if $info.crowd==$vo.id}selected{/if}>{$vo.crowd_name}</option>
+                    {/volist}
+                    </select>
+                    <button onclick="add_crowd()" class="btn btn-sm btn-primary" type="button" style="position: absolute;width:5em;left:10em">新增</button>
+                </div>
+                <!-- 地区 -->
+                <div data-toggle="distpicker" id="fre_distpicker">
+                  <p>地区：</p>
+                  <select id="province" data-province="---- 选择省 ----" class="form-control"></select>
+                  <select id="city" data-city="---- 选择市 ----" class="form-control"></select>
+                  <select id="district" data-district="---- 选择区 ----" class="form-control"></select><br><br>
+                  {if $info!=null}<p>当前地区</p>{/if}
+                  <input type="hidden" id="code" name="area"  value="{$info.area|default=''}">
+                  <input type="{$info.area?'text':'hidden'}" id="address" name="address" value="{$info.area|default=''}" disabled>
+                  {if $info!=null}<script>$("#address").val(getAddressOfNum('{$info.area}'));</script>{/if}
+                </div><br>
+                <!-- 价格 -->
+                <div class="input-group">
+                  <span class="input-group-addon" id="basic-addon1">价格 ￥ </span>
+                  <input type="text" class="form-control pro" name='fre' placeholder="价格" aria-describedby="basic-addon1" style="color:red" value="{$info.fre|default=''}">
+                </div><br>
+                <!-- 费用介绍 -->
+                <div class="input-group">
+                  <span class="input-group-addon" id="basic-addon1">费用介绍</span>
+                  <input type="text" class="form-control pro" name='fre_dec' placeholder="费用介绍" aria-describedby="basic-addon1" value="{$info.fre_dec|default=''}">
+                </div><br>                
+                
+                <!-- 提交的按钮 -->
+                <div class="clearfix form-actions">
+                    <div class="col-md-offset-3 col-md-9">
+                        <button class="btn btn-sm btn-primary" type="button" onclick="add_rec('/admin/Freinfo/{:input(\'id\')?\'edit_fre\':\'add_fretype\'}',1,'crowd')">
+                            <i class="ace-icon fa fa-check bigger-110"></i>
+                            {:input('id')?'更改':'添加'}
+                        </button>
+                        &nbsp; &nbsp; &nbsp;
+                        <button class="btn" type="reset">
+                            <i class="ace-icon fa fa-undo bigger-110"></i>
+                            重置
+                        </button>
+                    </div>
+                </div>
+            </form>
+            <!-- PAGE CONTENT ENDS -->
+        </div><!-- /.col -->
+    </div><!-- /.row -->
+</div><!-- /.page-content -->
+<script>
+    $("#fre_distpicker").distpicker({
+        autoSelect: false,
+    });
+
+    $("#province").change(function(){
+        var data = select_change_city("#province");
+        $("#code").val(data["code"]);
+    });
+    $("#city").change(function(){
+        var data = select_change_city("#city");
+        $("#code").val(data["code"]);
+    });
+    $("#district").change(function(){
+        var data = select_change_city("#district");
+        $("#code").val(data["code"]);
+    });
+
+</script>

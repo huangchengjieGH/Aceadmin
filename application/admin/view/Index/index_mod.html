@@ -1,0 +1,20 @@
+<iframe class="BMap_mask" id="BMap_mask" src='/admin/Register/Bmap'></iframe>
+
+<script type="text/javascript">
+       function get_lists(){
+            var lists = [];
+            {if $lists!=null}
+            {volist name="lists" id="vo" key="k"}
+                lists[{$k}] = {};
+                lists[{$k}]["shop_name"] = "{$vo.shop_name}";
+                lists[{$k}]["shop_pic"] = "{$vo.shop_pic}";
+                lists[{$k}]["longitude"] = "{$vo.longitude}";
+                lists[{$k}]["latitude"] = "{$vo.latitude}";
+                lists[{$k}]["usernum"] = "{$vo.usernum}";
+            {/volist}
+                return lists;   
+            {else}
+                return null;
+            {/if}       
+        }
+    </script>

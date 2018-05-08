@@ -1,0 +1,74 @@
+<div class="page-content">
+    <div class="col-sm-6 pull-right">
+        <span class="btn btn-sm btn-primary pull-right" onclick="menutab('/admin/Freinfo/add_index')">
+            添加
+            <i class="icon-reply icon-only"></i>
+        </span>
+    </div>
+    <div class="page-header">
+        <h4>
+            {:model('menu')->getName()} {gt name="$Request.get.group_id" value="0"} [{:model('AdminGroup')->getGroupName($Request.get.group_id)}]{/gt}
+        </h4>
+    </div><!-- /.page-header -->
+
+    <div class="row">
+        <div class="col-xs-12">
+            <!-- PAGE CONTENT BEGINS -->
+            <div class="row">
+                <div class="col-xs-12">
+                    <span>总产品数：{$people_count}</span>
+                    <table id="simple-table" class="table  table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th class="center">
+                                    <label class="pos-rel">
+                                        <input type="checkbox" class="ace" />
+                                        <span class="lbl"></span>
+                                    </label>
+                                </th>
+                                <th class="detail-col">序号</th>
+                                <th>地区</th>
+                                <th>费用名字</th>
+                                <th>费用介绍</th>
+                                <th>时间</th>
+                                <th>价格</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            {volist name="lists" id="vo" key="k"}
+                            <tr >
+                                <td class="center">
+                                    <label class="pos-rel">
+                                        <input type="checkbox" class="ace" />
+                                        <span class="lbl"></span>
+                                    </label>
+                                </td>
+                                <td>{$vo.id}</td>
+                                <td id="tr_{$k}"><script>$("#tr_{$k}").html(getAddressOfNum('{$vo.area}'));</script></td>
+                                <td><a href="#">{$vo.fre_name}</a></td>
+                                <td>{$vo.fre_dec}</td>
+                                <td>{:date('Y-m-d H:i:s',$vo.updatetime)}</td>
+                                <td class="hidden-480">
+                                    <span style="color:red">￥ {$vo.fre}</span>
+                                </td>
+                                <td>
+                                    <button class="btn btn-success" onclick="menutab('/admin/Freinfo/fre_info',{'id':{$vo['id']}})">修改</button>
+                                </td>
+                            </tr>
+                            {/volist}    
+                        </tbody>
+                    </table>
+                   
+                </div><!-- /.span -->
+            </div><!-- /.row -->
+             
+            <!-- PAGE CONTENT ENDS -->
+        </div><!-- /.col -->
+    </div><!-- /.row -->
+</div><!-- /.page-content -->
+
+<script>
+
+</script>
