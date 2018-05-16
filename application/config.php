@@ -211,7 +211,7 @@ return [
     'public'=>[
         'static'=>'/public/static',
         'public'=>'/public',
-        'domain_wx'=>'https://www.wjjcypt.cn',
+        'domain_wx'=>'https://admin.wjjcypt.cn',
         'uploadfile'=>'/webdata/water'
 	],
 ];
