@@ -8,7 +8,7 @@
  */
 
 namespace app\admin\controller;
-
+use think\Db;
 class RevenueController extends CommonController{
 	private static $page_size = 12;
     private static $area_code = 440114;

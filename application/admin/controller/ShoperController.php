@@ -403,7 +403,7 @@ class ShoperController extends CommonController {
 
         $data = input();
 
-        if($data['info2']<5 && $data['info2']>0){
+        if($data['info2']<10 && $data['info2']>0){
 
             $info['deliveryArea'] = floatval($data['info2']);
 
