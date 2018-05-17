@@ -136,7 +136,14 @@ class DistributionController extends CommonController {
 //        echo $page;
 //        echo $pageStart;
 //        echo $pageEnd;
-        $sql = "select h.user_id,h.user_name,h.user_role,h.totalincome,h.incoming,k.incomed from (
+        $sql = "select h.user_id,h.user_name,
+    case 
+    when h.user_role =1 then '普通用户'
+    when h.user_role =2 then '配送员'
+    when h.user_role =3 then '水店'
+    when h.user_role =4 then '企业用户' 
+    end user_role,
+h.totalincome,h.incoming,k.incomed from (
 select a.user_id,a.user_name,a.user_role,a.totalincome,b.incoming from (
 select p.user_id,p.user_name,p.user_role,IFNULL(sum(k.income),0) totalincome from sbw_income k right join 
 (select n.user_id, n.user_name,n.user_role from sbw_relation m left join sbw_user n on m.customerId = n.user_id
@@ -167,6 +174,19 @@ limit ?,?";
 
         $totalIncome = Db::query($sql,[$pageStart,$pageEnd]);
 //        echo json($totalIncome);
+        foreach($totalIncome as $k=>$v){
+            $t = $v->user_role;
+            if($t == 1){
+                $v['user_role'] = '普通用户';
+            }elseif ($t == 2){
+                $v['user_role'] = '配送员';
+            }elseif ($t == 3){
+                $v['user_role'] = '水店';
+            }elseif ($t == 4){
+                $v['user_role'] = '企业用户';
+            }
+
+        }
         return $totalIncome;
 //        return json($totalIncome);
     }
